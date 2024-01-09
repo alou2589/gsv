@@ -1,0 +1,78 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Volontaire | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> {{volontaire.prenom}} {{volontaire.nom}} </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_volontaire_delete', {'id': volontaire.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_volontaire_edit', {'id': volontaire.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_volontaire_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fas fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            
+        <div class="row">
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations Personnelles</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="statut-tab" data-toggle="tab" href="#statut" role="tab" aria-controls="statut" aria-selected="false">Statut Volontaire</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Carte Professionnelle</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Parc Informatique</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Fichiers</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        {% include './admin/volontaire/show_info_perso.html.twig' %}        
+                    </div>
+                    <div class="tab-pane fade" id="statut" role="tabpanel" aria-labelledby="statut-tab">
+                        
+                        {% include './admin/volontaire/show_info_pro.html.twig' %}   
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        
+                        {% include "./admin/volontaire/show_carte_pro.html.twig" %}
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        
+                        {% include "./admin/volontaire/show_info.html.twig" %}
+                    </div>
+                    <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+                        
+                        {% include "./admin/volontaire/show_files.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+

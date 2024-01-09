@@ -1,0 +1,20 @@
+<ul class="list-group">
+   <li class="list-group-item">
+       <p><strong>Nom Complet</strong>: {{ volontaire.Prenom}} {{ volontaire.Nom }}</p>
+   </li>
+   <li class="list-group-item">
+       <p><strong>Date et Lieu de Naissance</strong>: {{ volontaire.dateNaissance ? volontaire.dateNaissance|date('d-m-Y') : '' }} à {{ volontaire.lieuNaissance }}</p>
+   </li>
+   <li class="list-group-item">
+       <p><strong>Genre</strong>: {{ volontaire.Genre }}</p>
+   </li>
+   <li class="list-group-item">
+       <p><strong>Numéro Carte d'Identité</strong>: {{ volontaire.numeroCin }}</p>
+   </li>
+   <li class="list-group-item">
+       <p><strong>Adresse</strong>: {{ volontaire.adresse }}</p>
+   </li>
+   <li class="list-group-item">
+       <p><strong>Téléphone</strong>: {{ volontaire.telephone }}</p>
+   </li>
+</ul> 

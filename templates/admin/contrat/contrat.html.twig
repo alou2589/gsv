@@ -1,0 +1,156 @@
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="border-success">
+            <div class="col-md-12 col-sm-12 mx-auto print-container">
+                    <div class="row">
+                        <div class="col-md-12 text-center border-primary bg-light">
+                            <h1 class="text-success">CONTRAT DE PRESTATION DE SERVICES <br>
+                                PROGRAMME XËYU NDAW NI
+                            </h1>
+                        </div>
+                    </div><br>
+                    <div class="row ">
+                        <div class="col-md-12 mx-auto bg-white" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');">
+                            <div class="row">
+                                <div class="col-md-8 mx-auto">
+                                    <h4 class="text-center text-dark"> Entre les sousignés</h4>
+                                </div>
+                            </div>
+                            <div class="row text-dark">
+                                <div class="col-md-8 mx-auto" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');" >
+                                    <p>
+                                        <strong>D’une part, la Direction de l’Administration générale et de l’Equipement au Ministère du 
+                                        Commerce, de la consommation et des Petites et Moyennes Entreprises</strong> , sise à la Sphère 
+                                        ministérielle du 2ème arrondissement, Bâtiment C, 4ième étage, Diamniadio, agissant et représentée
+                                        par le Directeur de l’Administration générale et de l’Equipement,<strong> Madame Madeleine Suzanne LO</strong>,
+                                        Ci-après dénommée <strong>« DAGE », d’une part</strong> 
+                                    </p>
+                                    <p class="text-center"><strong>Et </strong></p>
+                                    <p> 
+                                        {% if contrat.volontaire.genre == "Homme" %}
+                                            <strong>M</strong>
+                                        {% else %}
+                                            <strong>Mme</strong>
+                                        {% endif %} <strong> {{contrat.volontaire.prenom}} {{contrat.volontaire.nom}} </strong>
+                                        {% if contrat.volontaire.genre == "Homme" %}
+                                            né
+                                        {% else %}
+                                            née
+                                        {% endif %} le <strong> {{ contrat.volontaire.dateNaissance ? contrat.volontaire.dateNaissance|date('d-m-Y') : '' }}</strong> à <strong>{{ contrat.volontaire.lieuNaissance }} </strong>, <br>
+                                        titulaire de la carte nationale d’identité sénégalaise n° <strong>{{contrat.volontaire.numeroCin}}</strong>, <br>
+                                        demeurant à {{contrat.volontaire.adresse}}. <br>
+                                        Tel : <strong>{{contrat.volontaire.telephone}}</strong>, Ci-après dénommé « Le Prestataire », d’autre part.
+
+                                    </p>
+                                    <h4 class="text-center">IL A ÉTÉ CONVENU ET ARRETÉ CE QUI SUIT:</h4>
+                                    <ul>
+                                        <li>
+                                            <strong>Article premier: Objet du contrat</strong> 
+                                                Le présent contrat a pour objet de fixer les conditions et modalités relatives aux prestations de services 
+                                                du <strong> Volontaire de la consommation</strong> pour le programme <strong>« XËYU NDAW NI »</strong>.  
+                                                
+                                        
+                                        </li>
+                                        <li>
+                                            <strong>Article 2 : consistance des services</strong> <br>
+                                            <p>Les prestations consistent à: <br>
+                                                <ul>
+                                                    <li>recueillir les informations sur la disponibilité des produits de consommation courante en stocks et sur l’évolution de leurs prix sur le marché ;</li>
+                                                    <li>appuyer les agents assermentés des services de contrôle de la Direction du Commerce intérieur dans l’exerce de leurs missions ;</li>
+                                                    <li>informer leur responsable auprès desquels ils sont placés sur les tensions constatées sur les marchés ;</li>
+                                                    <li>donner aux consommateurs toutes informations nécessaires.</li>
+                                                    <li>appuyer la Commission Nationale de Régulation des loyers (CONAREL) dans la mise en œuvre  de ses missions.</li>
+                                                </ul>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 3 : Obligation du Ministère</strong> <br>
+                                            <p>La DAGE s'engage à: <br>
+                                                <ul>
+                                                    <li>mettre à la disposition de l’agent volontaire les outils et moyens nécessaires à sa mission.</li>
+                                                    <li>payer les sommes dues au titre de la mission sous réserve de l’accomplissement complet et conforme par le prestataire de ses engagements.</li>
+                                                </ul>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 4 : Nature du contrat</strong> <br>
+                                            <p>
+                                                Les parties conviennent que ce contrat de prestation de services ne peut en aucun cas, être assimilé à un contrat de travail.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 5 : Durée du contrat</strong> <br>
+                                            <p>
+                                                Le présent contrat est conclu pour une durée de deux mois (02) mois renouvelable. Il prend effet à compter du 01 novembre 2023.                                            
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 6 : Remunération</strong> <br>
+                                            <p>
+                                                Le taux de rémunération des prestations de service est de <>trois mille trois cent trente-trois (3 333,33)
+                                                francs CFA</strong> net par jour. En contrepartie de la réalisation des prestations définies à l’article 2 du présent
+                                                contrat, la DAGE versera mensuellement, au prestataire un montant brut de <strong>cent cinq mille deux cent
+                                                soixante-trois (105263) francs CFA</strong> déduction faite <strong>au titre des 5% de retenue pour BRS</strong> en
+                                                application de l’article 133 du Code général des impôts soit un montant mensuel net de <strong>cent mille (100
+                                                000) francs CFA</strong>. La DAGE se réserve le droit de défalquer les jours d’absences aux convocations de
+                                                demande de prestations non justifiés.                                             
+                                                <br>    
+                                                Toutefois, les absences du volontaire constatées par les services concernés du MCCPME sont
+                                                déductibles au prorata de la rémunération globale du mois en cours. 
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 7 : Lieu de la prestation</strong> <br>
+                                            <p>Le lieu de réalisation de la prestation de services est actuellement fixé dans la région de Dakar.</p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 8 : Obligation de loyauté, de dicrétion et d'éthique</strong> <br>
+                                            <p>
+                                                Il est strictement interdit de profiter des pouvoirs conférés par le statu de prestataire pour: <br>
+                                                <ul>
+                                                    <li>obtenir des avantages pour soi ou au profit des tiers ,</li>
+                                                    <li>exercer une quelconque forme de détournement</li>
+                                                </ul>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <strong>Article 9 : Résiliation</strong> <br>
+                                            <p>
+                                                Toute faute, manquement ou inexécution des obligations décrites à l’article 3 du présent contrat,
+                                                constituent une cause de résiliation immédiate du présent contrat de prestation de services.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-md-8 mx-auto">
+                                    <div class="row text-dark">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6 mx-auto text-right">
+                                            Fait en quatre (04) exemplaires,<strong> à Dakar le {{"now"|date('d/m/Y')}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-8 mx-auto">
+                                    <div class="row text-dark">
+                                        <div class="col-md-6 mx-auto text-left">
+                                    <strong> Le Prestataire:</strong>
+                                        </div>
+                                        <div class="col-md-6 mx-auto text-right">
+                                            <strong>Le DAGE:</strong>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br><br>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

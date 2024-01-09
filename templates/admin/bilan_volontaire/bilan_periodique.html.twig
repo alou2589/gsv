@@ -1,0 +1,12 @@
+
+{{form_start(form, {'attr':{'class':'form'}})}}
+    <div class="col-md-5 form-floatng">
+        {{form_row(form.minDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
+    </div>
+    <div class="col-md-5 form-group">
+        {{form_row(form.maxDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
+    </div>
+    <div class="col-md-2 form-floating">
+      <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
+    </div>
+{{ form_end(form) }}

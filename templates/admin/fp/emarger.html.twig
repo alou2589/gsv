@@ -1,0 +1,12 @@
+
+            {{form_start(form, {'attr':{'class':'form'}})}}
+                <div class="col-md-8 form-floatng">
+                    {{form_row(form.affectation, {'attr':{'class':"form-control js-example-basic-single", 'required':"required"}})}}
+                </div>
+                <div class="col-md-2 form-group">
+                    {{form_row(form.etat_tp, {'attr':{'class':"form-control js-example-basic-single", 'required':"required"}})}}
+                </div>
+                <div class="col-md-2 form-floating">
+                  <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
+                </div>
+            {{ form_end(form) }}

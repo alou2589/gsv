@@ -1,0 +1,152 @@
+<!-- Recto -->
+<div class="row">
+  <div class="col-md-12 mx-auto print-container">
+  
+    <div class="row">
+      <div class="x_content">
+          <div class="col-md-8 col-sm-8 text-dark profile_details">
+            <div class="well profile_view recto shadow-1 border-success" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/build/images/logo-icons/logo-njegYi.png')}}" alt="" width="70" ></div>
+                  <div class="col-md-8 text-center">
+                    <p><strong>REPUBLIQUE DU SENEGAL</strong>
+                      <br>
+                      Ministère du Commerce, de la Consommation et des PME <br>
+                      
+                        <img src="{{asset('assets/build/images/flag.jpg')}}" alt="" height="10" width="100%" >
+                    </p>
+                  </div>
+                  <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/build/images/logo-icons/logo-mincom.png')}}" alt="" width="70" ></div>
+                </div>
+                <div class="row">
+                  <div class="right col-sm-4 text-center">
+                    <div class="photo_agent">
+                      <img src="{{asset('assets/uploads/photoVolontaire/'~ carte_pro.PhotoVolontaire)| imagine_filter('my_image')}}" alt="photo_volontaire" class="img-fluid" width="120" ><br>
+                    </div>
+                    <br>  
+                    <br>
+                    <img src="{{qrCodeVolontaire}}" alt="" width="100"></li>
+                  </div>
+                  <div class="left col-sm-8">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h4><small>Prénom</small>: </h4>
+                      </div>
+                      <div class="col-sm-9">
+                        <strong style="font-size: 1.5em ;"> {{carte_pro.affectation.volontaireStatut.volontaire.Prenom}}</strong> 
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h4><small>Nom</small>:
+                      </div>
+                      <div class="col-sm-9">
+                        <strong style="font-size: 1.5em ;"> {{carte_pro.affectation.volontaireStatut.volontaire.Nom}}</strong> 
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h4><small>Matricule</small>:
+                      </div>
+                      <div class="col-sm-9">
+                        <strong style="font-size: 1.5em ;"> {{carte_pro.affectation.volontaireStatut.Matricule}}</strong> 
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h4><small>Fonction</small>:
+                      </div>
+                      <div class="col-sm-9">
+                        <strong style="font-size: 1.1em ;"> {{carte_pro.affectation.poste.nomPoste}}</strong> 
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h4><small>Service</small>:
+                          </div>
+                          <div class="col-sm-9">
+                            <strong style="font-size: 1.1em ;"> {{carte_pro.affectation.serviceDepartemental.nomSdc}}</strong> 
+                          </div>
+                        </div>
+                        <hr style="border: 1px solid green ;">
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- Verso -->
+    <!-- Recto -->
+    <div class="row">
+      <div class="x_content">
+        <div class="col-md-8 col-sm-8 text-dark profile_details">
+          <div class="well profile_view recto shadow-1 border-success" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/build/images/logo-icons/logo-njegYi.png')}}" alt="" width="70" ></div>
+                  <div class="col-md-8 text-center">
+                    <p><strong>REPUBLIQUE DU SENEGAL</strong>
+                      <br>
+                      Ministère du Commerce, de la Consommation et des PME <br>
+                        <img src="{{asset('assets/build/images/flag.jpg')}}" alt="" height="10" width="100%" >
+                    </p>
+                  </div>
+                  <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/build/images/logo-icons/logo-mincom.png')}}" alt="" width="70" ></div>
+                </div>
+                <div class="row">
+                <div class="col-md-2"></div>
+                  <div class="left col-sm-4 mx-auto">
+                    <div class="row">
+                      <div class="col-sm-6">                
+                        <p><small> Date de Délivrance:</small><br><strong>{{ carte_pro.dateDelivrance ? carte_pro.dateDelivrance|date('d-m-Y') : '' }}</strong> </p>
+                      </div>
+                      <div class="col-sm-6">
+                        <p><small> Date d'Expiration:</small><br><strong>{{ carte_pro.dateExpiration ? carte_pro.dateExpiration|date('d-m-Y') : '' }}</strong></p>
+                      </div>
+                    </div>
+                    <br>
+                    <p>Durée Validité: <br><strong> 1 an </strong></p>
+                  </div>
+                  <div class="right col-sm-6 text-center">
+                    <img src="{{asset('assets/build/images/stamp.png')}}" alt="" class="img-circle" width="100"><br>
+                    <img src="{{asset('assets/build/images/cachet.png')}}" alt="" class="img-fluid" width="100">
+                    <br>
+                    <img src="{{asset('assets/build/images/sign.png')}}" alt="" width="50"></li>
+                  </div>
+                </div>
+                <hr style="border: 1px solid green ;">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <small class="text-dark brief">Contact: 
+                      <img src="{{asset('assets/build/images/phone.png')}}" alt="" width="15"> 
+                      <strong>338692120</strong>
+                      <img src="{{asset('assets/build/images/mail.png')}}" alt="" width="15"> 
+                      <strong>commerce@commerce.gouv.sn</strong>
+                      <img src="{{asset('assets/build/images/loc.png')}}" alt="" width="15"> 
+                      <strong>Spherex - Diamniadio</strong>
+                    </small> 
+                    <br>
+                    <small class=" text-dark brief"><strong style="font-weight: 900;"> La carte est la propriété du Ministère du Commerce de la Consommation et des PME</strong></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login | G.S.V. </title>
+        
+    <link rel="shortcut icon" href="{{asset('assets/build/images/logo-icons/logo-njegYi.png')}}" />
+
+    <!-- Bootstrap -->
+    <link href="{{asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{asset('assets/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{{asset('assets/build/css/custom.min.css')}}" rel="stylesheet">
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <div class="p-1">
+              <h3><img src="{{ asset('assets/build/images/logo-icons/logo-njegYi.png') }}" alt="Logo" width="100"></h3>
+            </div>
+            <form method="post">
+                
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+          
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+          
+                <button class="btn btn-lg btn-success" type="submit"> Connexion</button>
+            </form>
+            <div class="clearfix"></div>
+
+            <div class="separator">
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><i class="fa fa-paw"></i> G.S.V. </h1>
+                <div class="pull-right">
+                  Ministère du Commerce de la Consommation et des PME <img src="{{asset('assets/images/logo.png')}}" width="20" alt=""> Designed By Alou 
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        
+      
+      
+      </div>
+      
+    </div>
+  </body>
+</html>

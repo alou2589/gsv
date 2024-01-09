@@ -1,0 +1,66 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}S.R.C. | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> S.R.C. </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        {% include "./admin/sdc/delete.html.twig" %}
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_sdc_edit', {'id': service_departemental.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_sdc_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fas fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Volontaires</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p><strong>Id</strong>: {{ service_departemental.id }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Service</strong>: {{ service_departemental.nomSdc }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Département</strong>: {{ service_departemental.departement.nomDepartement }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Service Régional</strong>: {{ service_departemental.serviceRegional.nomSrc }}</p>
+                            </li>
+                        </ul>    
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        {% include './admin/sdc/listeVolontaires.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

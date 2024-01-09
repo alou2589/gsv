@@ -1,0 +1,84 @@
+
+              <ul class="nav side-menu">
+                <li><a><i class="fa fa-dashboard"></i> Tableau de Bord <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="{{ path('app_admin_dashboard')}}">Tableau de Bord</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-location-arrow"></i> Localité<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_regions_index") }}>Régions</a>
+                    </li>
+                    <li><a href={{ path("app_admin_departements_index") }}>Départements</a>
+                    </li>
+                  </ul>
+                </li> 
+                <li><a><i class="fa fa-building"></i> Services<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_src_index") }}>Régionaux</a>
+                    </li>
+                    <li><a href={{ path("app_admin_sdc_index") }}>Départementaux</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fa fa-users"></i> Volontaires<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_volontaire_index") }}>Volontaires</a>
+                    </li>
+                    <li><a href={{ path("app_admin_sv_index") }}>Statut</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fa fa-registered"></i> Affectations<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_poste_index") }}>Poste</a>
+                    </li>
+                    <li><a href={{ path("app_admin_affectation_index") }} >Affectation</a>
+                    </li>
+                    <li><a href={{ path("app_admin_carte_pro_index") }} >Carte Professionnelle</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fa fa-clipboard"></i> Contrats<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_tc_index") }}>Type de Contrat</a>
+                    </li>
+                    <li><a href={{ path("app_admin_contrat_index") }} >Contrats</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fa fa-file-archive-o"></i> Fichiers<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_tf_index") }}>Type de Fichier</a>
+                    </li>
+                    <li><a href={{ path("app_admin_fichier_index") }} >Fichiers</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fas fa-fingerprint"></i> Temps Présence<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_etp_index") }}>Etat</a>
+                    </li>
+                    <li><a href={{ path("app_admin_fp_index") }} >Feuille Présence</a>
+                    </li>
+                    <li><a href={{ path("app_admin_emargement_index") }} >Émargement</a>
+                    </li>
+                  </ul>
+                </li>    
+                <li><a><i class="fa fa-money"></i> Salaire<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href={{ path("app_admin_bilan_volontaire_index") }}>Bilan</a>
+                    </li>
+                    <li><a href={{ path("app_admin_bv_index") }} >Bulletin</a>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fa fa-user"></i> Utilisateurs<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
+                    </li>
+                    <li><a href="{{ path("app_admin_role_index") }}">Roles</a>
+                    </li>
+                  </ul>
+                </li>   
+              </ul>

@@ -1,0 +1,31 @@
+{% if statut_volontaire == null %}    
+    <div class="alert alert-secondary alert-completer " role="alert">
+        <strong>Statut volontaire: </strong> Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_statut_volontaire_new') }}"  class="text-decoration-none float-left m-1" title="Classer le volontaire"> <i class="fas fa-clipboard-list text-info"></i> </a>
+    </div>  
+{% else %}
+    <ul class="list-group">
+        <li class="list-group-item">
+            <p><strong>Matricule</strong>: {{statut_volontaire.matricule}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Date de prise de service</strong>: {{statut_volontaire.DateRecrutement ? statut_volontaire.DateRecrutement|date('d-m-Y'):' '}}</p>
+        </li>
+    </ul> 
+    {% if affectation == null %}
+        <div class="alert alert-secondary alert-completer " role="alert">
+            <strong>Affectation: </strong> Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_affectation_new') }}"  class="text-decoration-none float-left m-1" title="Classer le volontaire"> <i class="fas fa-clipboard-list text-info"></i> </a>
+        </div>  
+    {% else %}  
+    <ul class="list-group">
+        <li class="list-group-item">
+            <p><strong>Service Départemental</strong>: {{affectation.serviceDepartemental.nomSdc}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Poste</strong>: {{affectation.poste.nomPoste}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Date d'affectation</strong>: {{affectation.DateAffectation ? affectation.DateAffectation|date('d-m-Y'):' '}}</p>
+        </li>
+    </ul> 
+    {% endif %}
+{% endif %}

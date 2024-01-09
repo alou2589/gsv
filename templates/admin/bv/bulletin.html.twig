@@ -1,0 +1,92 @@
+
+<div class="row text-dark">
+    <div class="col-md-12 mx-auto" >
+        <div class="border-success">
+            <div class="col-md-12 col-sm-12 mx-auto">
+                <div class="well profile_view recto shadow-1 border-success text-black print-container">
+                    <div class="row" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');">
+                        <div class="col-md-10 mx-auto text-center border-primary">
+                            <h2 class="text-black"> <strong>BULLETIN DE PAIE</strong> </h2>
+                            <p class="text-center">
+                                 <br>
+                                ***************************** <br>
+                                Projet de Contrôle des prix- "Saaytu Njëg Yi"
+                            </p>
+                        </div>
+                        <div class="col-md-4 border-primary bg-light">
+                            <h2 class="text-black"><strong>{{ bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.volontaire.prenom }} {{ bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.volontaire.nom }}</strong> </h2>
+                            <p class="text-black">
+                             Matricule: <strong>{{bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.matricule}}</strong> <br>
+                                Fonction:<strong> {{bulletin_volontaire.bilanVolontaire.affectation.poste.nomPoste}}</strong>
+                            </p>
+                        </div>
+                    </div><br><br>
+                    
+                    <div class="row ">
+                        <div class="col-md-12 mx-auto text-center text-dark bg-white">
+                            <h2>Bulletin de Salaire du <strong>{{bulletin_volontaire.bilanVolontaire.mois}}/{{bulletin_volontaire.bilanVolontaire.annee}}</strong></h2> 
+                        </div>
+                        <div class="col-md-12 mx-auto bg-white" style="background-position-x:center;background-position-y: center;background-repeat:no-repeat;background-image:url('{{asset('assets/build/images/logo-icons/opacity-njegYi.png')}}');">
+                            <table id="table" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-black">Libellé</th>
+                                        <th class="text-center text-black">Value</th>
+                                        <th class="text-center text-black">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">Nombres de Jours Total</td>
+                                        <td class="text-center">{{bulletin_volontaire.bilanVolontaire.nbjoursOuvrables}} </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Nombres de Jours de Présence</td>
+                                        <td class="text-center">{{bulletin_volontaire.bilanVolontaire.nbjourPresence}} </td>
+                                        <td class="text-center">{{bulletin_volontaire.paiePresence}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Nombres de Jours d'Absence</td>
+                                        <td class="text-center">{{bulletin_volontaire.bilanVolontaire.nbjourAbsence}} </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Forfait</td>
+                                        <td></td>
+                                        <td class="text-center">{{bulletin_volontaire.forfait}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Retenu</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-black" colspan="2" >Total</td>
+                                        <td class="text-center">{{bulletin_volontaire.TotalPaie}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-8 mx-auto">
+                                    <div class="row text-dark">
+                                        <div class="col-md-8 mx-auto text-left">
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2 text-right">
+                                            <strong>Le DAGE:</strong>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

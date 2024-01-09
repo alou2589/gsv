@@ -1,0 +1,106 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Contrat | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Contrat </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        {% include "./admin/contrat/delete.html.twig" %}
+                    </li>
+                    <li>
+                        <button class="btn btn-default"  onclick="window.print();" title="Imprimer"> <i class="fas fa-print text-black"></i> </button>
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_contrat_edit', {'id': contrat.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_contrat_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fas fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contrat</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p><strong>Id</strong>: {{ contrat.id }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Nom Complet</strong>: {{ contrat.volontaire.Prenom}} {{ contrat.volontaire.Nom }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Numéro Carte d'Identité</strong>: {{ contrat.volontaire.genre}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date et Lieu de Naissance</strong>: {{ contrat.volontaire.dateNaissance ? contrat.volontaire.dateNaissance|date('d-m-Y') : '' }} à {{ contrat.volontaire.lieuNaissance }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date et de Début</strong>: {{ contrat.dateDebut ? contrat.dateDebut|date('d-m-Y') : '' }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date de Fin</strong>: {{ contrat.dateFin ? contrat.dateFin|date('d-m-Y') : '' }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Opérateur</strong>: {{ contrat.operateur.prenom}} {{ contrat.operateur.nom}}-{{ contrat.operateur.matricule}}</p>
+                            </li>
+                        </ul> 
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <style>
+                        .print-container{
+                            font: 12pt "Times New Roman";
+                            margin: 0;
+                        }
+                            @media print {
+                                /* Cacher les autres éléments */
+                                body * {
+                                    visibility: hidden;
+                                }
+                                /* Then displaying print container elements */
+                                .print-container, .print-container *{
+                                    visibility: visible;
+                                    size: A4 portrait;
+                                    margin: 0;
+                                }
+                            }
+                        </style>
+                        {% include './admin/contrat/contrat.html.twig' %}
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+    
+{% endblock %}
+
+
+
+
+
+
+                                  

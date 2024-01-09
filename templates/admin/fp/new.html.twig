@@ -1,0 +1,47 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Feuille de Présence | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Feuille de Présence</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li>
+              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li>
+              <a href="{{ path('app_admin_fp_index') }}" title="Accueil Feuille de présence" ><i class="fas fa-fw fa-home"></i></a>
+          </li>
+          <li>
+              <a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row">
+          <div class="col-md-6 col-sm-10 mx-auto">
+            {{form_start(form, {'attr':{'class':'form'}})}}
+              <div class="form-floating mb-3">
+                {{form_row(form.active, {'label':'Activer/désactiver ','attr':{'class':"form-control js-switch",'readonly':'readonly', 'required':"required"}})}}
+              </div>
+              <div class="form-floating mb-3">
+                {{form_row(form.date_feuille, {'attr':{'class':"form-control js-datepicker", 'required':"required", 'autofocus':"autofocus"}})}}
+              </div>
+              <div class="form-floating mb-3">
+                {{form_row(form.service_departemental, {'label':'Service','attr':{'class':"form-control", 'placeholder':"Feuille de Présence", 'required':"required", 'autofocus':"autofocus"}})}}
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
+              </div>
+            {{ form_end(form) }}
+          </div>
+          <div class="col-md-6 col-sm-10 mx-auto">
+            <form action="#" class="dropzone"></form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

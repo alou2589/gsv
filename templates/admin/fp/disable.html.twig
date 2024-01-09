@@ -1,0 +1,20 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel2">Confirmation de la suppression</h2>
+        <button type="button" class="close" data-dilgiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer  <strong class="text-danger"> {{feuille_presence.numeroFeuille}} </strong>  ?</p>
+        <form method="post" action="{{ path('app_admin_disable_fp_emargement', {'id': feuille_presence.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('disable' ~ feuille_presence.id) }}">
+            <a href="{{ path('app_admin_fp_show', {'id':feuille_presence.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
+            <button class="btn btn-secondary">Désactiver <i class="fas fa-disabled"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

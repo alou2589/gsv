@@ -1,0 +1,85 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block body %}
+<div class="row">
+<div class="col-md-12 col-sm-12 ">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Contrat</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li>
+            <a href="#" title="Upload Excel" ><i class="fas fa-fw fa-file-excel-o text-success"></i></a>
+        </li> 
+        <li>
+            <a href="{{ path('app_admin_contrat_new') }}" title="Ajout Emargement" ><i class="fas fa-fw fa-plus-circle"></i></a>
+        </li> 
+        <li>
+            <a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box table-responsive">
+            <p class="text-muted font-13 m-b-30">
+              Liste des Contrats
+            </p>
+            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+              <thead>
+                  <tr>
+                      <th class="text-center">Id</th>
+                      <th class="text-center">Volontaire</th>
+                      <th class="text-center">Numéro CIN</th>
+                      <th class="text-center">Début</th>
+                      <th class="text-center">Fin</th>
+                      <th class="text-center">Informations</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for contrat in contrats %}
+                  <tr>
+                    <td class="text-center">{{ contrat.id }}</td>
+                    <td class="text-center">{{ contrat.volontaire.prenom }} {{ contrat.volontaire.nom }}</td>
+                    <td class="text-center">{{ contrat.volontaire.numeroCin }} </td>
+                    <td class="text-center">
+                        {{contrat.DateDebut ? contrat.DateDebut|date('d-m-Y'):' '}}                    
+                    </td>
+                    <td class="text-center">
+                        {{contrat.DateFin ? contrat.DateFin|date('d-m-Y'):' '}}                    
+                    </td>
+                    <td class="text-center">
+                      <div class="row">
+                          <div class="col-md-8 mx-auto">
+                              <a href="{{ path('app_admin_contrat_show', {'id': contrat.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                              <a href="{{ path('app_admin_contrat_edit', {'id': contrat.id}) }}"><i class="fas fa-edit text-warning" title="Modifier"></i></a>
+                          </div>
+                      </div>
+                    </td>
+                  </tr>
+              {% else %}
+                  <tr>
+                    <td class="text-center" colspan="6">
+                        <a href="{{ path('app_admin_contrat_new') }}" title="Ajout Contrat" >Ajouter <i class="fas fa-fw fa-plus-circle"></i></a>
+                    </td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+

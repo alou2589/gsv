@@ -1,0 +1,79 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block body %}
+<div class="row">
+<div class="col-md-12 col-sm-12 ">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Bulletin Volontaire</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li>
+            <a href="#" title="Upload Excel" ><i class="fas fa-fw fa-file-excel-o text-success"></i></a>
+        </li> 
+        <li>
+            <a href="{{ path('app_admin_bv_new') }}" title="Ajout Bulletin Volontaire" ><i class="fas fa-fw fa-plus-circle"></i></a>
+        </li> 
+        <li>
+            <a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box table-responsive">
+            <p class="text-muted font-13 m-b-30">
+              Liste desBulletin Volontaire
+            </p>
+            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+              <thead>
+                  <tr>
+                      <th class="text-center">Id</th>
+                      <th class="text-center">Volontaire</th>
+                      <th class="text-center">Matricule</th>
+                      <th class="text-center">Informations</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for bulletin_volontaire in bulletin_volontaires %}
+                  <tr>
+                    <td class="text-center">{{ bulletin_volontaire.id }}</td>
+                    <td class="text-center">
+                        {{ bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.volontaire.prenom }} {{ bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.volontaire.nom }}
+                    </td>
+                    <td class="text-center">{{ bulletin_volontaire.bilanVolontaire.affectation.volontaireStatut.matricule }}</td>
+                    <td class="text-center">
+                      <div class="row">
+                          <div class="col-md-8 mx-auto">
+                              <a href="{{ path('app_admin_bv_show', {'id': bulletin_volontaire.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                              <a href="{{ path('app_admin_bv_edit', {'id': bulletin_volontaire.id}) }}"><i class="fas fa-edit text-warning" title="Modifier"></i></a>
+                          </div>
+                      </div>
+                    </td>
+                  </tr>
+              {% else %}
+                  <tr>
+                    <td class="text-center" colspan="5">
+                        <a href="{{ path('app_admin_bv_new') }}" title="Ajout Bulletin Volontaire" >Ajouter <i class="fas fa-fw fa-plus-circle"></i></a>
+                    </td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+
