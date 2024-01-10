@@ -8,7 +8,7 @@
             <p><strong>Matricule</strong>: {{statut_volontaire.matricule}}</p>
         </li>
         <li class="list-group-item">
-            <p><strong>Date de prise de service</strong>: {{statut_volontaire.DateRecrutement ? statut_volontaire.DateRecrutement|date('d-m-Y'):' '}}</p>
+            <p><strong>Date de recrutement</strong>: {{statut_volontaire.DateRecrutement ? statut_volontaire.DateRecrutement|date('d-m-Y'):' '}}</p>
         </li>
     </ul> 
     {% if affectation == null %}
@@ -18,7 +18,7 @@
     {% else %}  
     <ul class="list-group">
         <li class="list-group-item">
-            <p><strong>Service Départemental</strong>: {{affectation.serviceDepartemental.nomSdc}}</p>
+            <p><strong>Service </strong>: {{affectation.serviceDepartemental.nomSdc}}</p>
         </li>
         <li class="list-group-item">
             <p><strong>Poste</strong>: {{affectation.poste.nomPoste}}</p>
