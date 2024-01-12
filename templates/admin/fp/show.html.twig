@@ -39,26 +39,29 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <p><strong>Id</strong>: {{ feuille_presence.id }}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <p><strong>Numéro Feuille</strong>: {{ feuille_presence.numeroFeuille}}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <p><strong>Service</strong>: {{ feuille_presence.serviceDepartemental.nomSdc }}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <p><strong>Opérateur</strong>: {{ feuille_presence.operateur.email }}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('h:m:s'):' '}}</p>
-                        </li>
-                    </ul>    
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <p><strong>Numéro Feuille</strong>: {{ feuille_presence.numeroFeuille}}</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <p><strong>Service</strong>: {{ feuille_presence.serviceDepartemental.nomSdc }}</p>
+                            </div>
+                            <div class="lcol-md-3 text-center">
+                                <p><strong>Opérateur</strong>: {{ feuille_presence.operateur.email }}</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('h:m:s'):' '}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% include "./admin/fp/emargement.html.twig" %}
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        {% include "./admin/fp/emargement.html.twig" %}
+                        {#% include "./admin/fp/emargement.html.twig" %#}
                     </div>
                 </div>
             </div>

@@ -4,8 +4,9 @@ namespace App\Repository;
 
 use App\Entity\BilanSearch;
 use App\Entity\BilanVolontaire;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\EmargementSearch;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<BilanVolontaire>
@@ -39,6 +40,7 @@ class BilanVolontaireRepository extends ServiceEntityRepository
             ->getResult();
         return $query;
     }
+
 
 //    /**
 //     * @return BilanVolontaire[] Returns an array of BilanVolontaire objects

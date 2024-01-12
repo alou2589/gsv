@@ -34,7 +34,7 @@ class FeuillePresenceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
-    }
+    } 
 
 //    /**
 //     * @return FeuillePresence[] Returns an array of FeuillePresence objects

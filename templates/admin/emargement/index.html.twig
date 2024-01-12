@@ -47,7 +47,13 @@
                     <td class="text-center">
                         {{ emargement.affectation.volontaireStatut.volontaire.prenom }} {{ emargement.affectation.volontaireStatut.volontaire.nom }}
                     </td>
-                    <td class="text-center">{{ emargement.etatTP.nomEtatTp }}</td>
+                    <td class="text-center">
+                      {% if emargement.etatTp == null %}
+                        ...
+                      {% else %}
+                        {{ emargement.etatTP.nomEtatTp }}
+                      {% endif %}
+                    </td>
                     <td class="text-center">
                       <div class="row">
                           <div class="col-md-8 mx-auto">

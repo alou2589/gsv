@@ -2,15 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\EmargementSearchType;
+use DateTimeImmutable;
 use App\Entity\Emargement;
 use App\Form\FPEmargementType;
 use App\Entity\FeuillePresence;
+use App\Entity\EmargementSearch;
 use App\Form\FeuillePresenceType;
-use App\Repository\EtatTempsPresenceRepository;
+use App\Repository\EmargementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\AffectationRepository;
 use App\Repository\FeuillePresenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\EtatTempsPresenceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,7 +29,7 @@ class FPController extends AbstractController
             'feuille_presences' => $feuillePresenceRepository->findAll(),
         ]);
     }
-
+    
     #[Route('/new', name: 'app_admin_fp_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -40,7 +45,14 @@ class FPController extends AbstractController
             $feuillePresence->setOperateur($operateur);
             $feuillePresence->setNumeroFeuille($numeroFeuille);
             $entityManager->persist($feuillePresence);
-            $entityManager->flush();
+            foreach ($feuillePresence->getServiceDepartemental()->getAffectations() as $affectation) {
+                # code...
+                $emargement=new Emargement();
+                $emargement->setAffectation($affectation);
+                $emargement->setFeuille($feuillePresence);
+                $entityManager->persist($emargement);
+                $entityManager->flush();
+            }
 
             return $this->redirectToRoute('app_admin_fp_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -50,25 +62,11 @@ class FPController extends AbstractController
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}/show', name: 'app_admin_fp_show', methods: ['GET', 'POST'])]
     public function show(FeuillePresence $feuillePresence, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $emargement = new Emargement();
-        $form = $this->createForm(FPEmargementType::class, $emargement);
-        $form->handleRequest($request);        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $emargement->setFeuille($feuillePresence);
-            $entityManager->persist($emargement);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_admin_fp_show', ['id'=>$feuillePresence->getId()], Response::HTTP_SEE_OTHER);
-        }
-        
-        
+    {    
         return $this->render('admin/fp/show.html.twig', [
             'feuille_presence' => $feuillePresence,
-            'form'=>$form
         ]);
     }
 
@@ -91,20 +89,38 @@ class FPController extends AbstractController
     }
     
     
+    #[Route('/{id}/emarger/{id_emargement}', name: 'app_admin_emarger_fp_emargement', methods: ['POST'])]
+    public function emarger(Request $request, EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager, $id_emargement): Response
+    {
+        if ($this->isCsrfTokenValid('emarger'.$feuillePresence->getId(), $request->request->get('_token'))) {
+            $presence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Présent']);
+            $emargement=$emargementRepository->findOneBy(['feuille'=>$feuillePresence,'id'=>$id_emargement]);
+            $emargement->setHeure(new DateTimeImmutable());
+            $emargement->setEtatTp($presence);
+            $entityManager->persist($emargement);
+            $entityManager->persist($feuillePresence);
+        }
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_admin_fp_show', ['id'=>$feuillePresence->getId()], Response::HTTP_SEE_OTHER);
+    }
+    
     #[Route('/{id}/fermer', name: 'app_admin_disable_fp_emargement', methods: ['POST'])]
-    public function disable(Request $request,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
+    public function disable(Request $request,EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('disable'.$feuillePresence->getId(), $request->request->get('_token'))) {
-            $emargement=new Emargement();
+            
             $absence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Absent']);
-            $service_departemental=$feuillePresence->getServiceDepartemental();
-            $affectations=$service_departemental->getAffectations();
-            foreach ($affectations as $affectation) {
-                $emargement->setFeuille($feuillePresence);
-                $emargement->setAffectation($affectation);
-                $emargement->setEtatTp($absence);
-                $entityManager->persist($emargement);
-                $entityManager->flush();
+            $emargements=$emargementRepository->findBy(['feuille'=>$feuillePresence]);
+            foreach ($emargements as $emargement) {
+                # code...
+                if ($emargement->getEtatTp() == null) {
+                    # code...
+                    $emargement->setEtatTp($absence);
+                    $emargement->setHeure(new DateTimeImmutable());
+                    $entityManager->persist($emargement);
+                    $entityManager->flush();
+                }
             }
             $feuillePresence->setActive(false);
             $entityManager->persist($feuillePresence);

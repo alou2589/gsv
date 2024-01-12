@@ -28,14 +28,6 @@ class FPEmargementType extends AbstractType
                 'choice_label' => 'nom_etat_tp',
                 'attr'=>['style'=>'width:100%','class'=>'js-example-basic-single']
             ])
-            ->add('affectation', EntityType::class, [
-                'label' => false,
-                'class' => Affectation::class,
-                'choice_label' => function ($affectation) {
-                        return $affectation->getVolontaireStatut()->getVolontaire()->getPrenom().' '.$affectation->getVolontaireStatut()->getVolontaire()->getNom().' '.$affectation->getVolontaireStatut()->getMatricule();
-                },
-                'attr'=>['style'=>'width:100%','class'=>'js-example-basic-single']
-            ])
         ;
     }
 

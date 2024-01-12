@@ -20,16 +20,11 @@ class Emargement
     #[ORM\ManyToOne(inversedBy: 'emargements')]
     private ?Affectation $affectation = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?\DateTimeImmutable $heure = null;
 
     #[ORM\ManyToOne(inversedBy: 'emargements')]
     private ?FeuillePresence $feuille = null;
-
-    public function __construct()
-    {
-        $this->heure= new \DateTimeImmutable();
-    }
     public function getId(): ?int
     {
         return $this->id;

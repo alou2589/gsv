@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Emargement;
 use App\Entity\BilanSearch;
+use App\Entity\EmargementSearch;
 use DoctrineExtensions\Query\Mysql;
 use DoctrineExtensions\Query\Mysql\Year;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,21 @@ class EmargementRepository extends ServiceEntityRepository
             ->setParameter('nomTp', $nomTp)
         ;
         return $query->getQuery()->getResult();
+    } 
+    public function findAllEmargementSearch(EmargementSearch $emargementSearch){
+            $query=$this->createQueryBuilder('e')
+            ->select("
+                    DISTINCT(e.affectation) AS info_volontaire,
+                    COUNT(SELECT * FROM App\Entity\Emargement e WHERE e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTp et WHERE et='Présent' )) AS nb_presence,
+                    COUNT(SELECT * FROM App\Entity\Emargement e WHERE e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTp et WHERE et='Absent' )) AS nb_absence,
+                    COUNT(e) AS total
+            ")
+            ->where("MONTH(e.heure)= :m")
+            ->setParameter('m',$emargementSearch->getChosenDate())
+            ->groupBy('e.affectation')
+            ->getQuery()
+            ->getResult();
+        return $query;
     }
 //    /**
 //     * @return Emargement[] Returns an array of Emargement objects
