@@ -2,16 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Form\EmargementSearchType;
-use DateTimeImmutable;
 use App\Entity\Emargement;
 use App\Form\FPEmargementType;
 use App\Entity\FeuillePresence;
 use App\Entity\EmargementSearch;
 use App\Form\FeuillePresenceType;
+use App\Form\EmargementSearchType;
 use App\Repository\EmargementRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AffectationRepository;
+use App\Repository\BilanVolontaireRepository;
 use App\Repository\FeuillePresenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +24,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FPController extends AbstractController
 {
     #[Route('/', name: 'app_admin_fp_index', methods: ['GET'])]
-    public function index(FeuillePresenceRepository $feuillePresenceRepository): Response
+    public function index(Request $request,EmargementRepository $emargementRepository,FeuillePresenceRepository $feuillePresenceRepository): Response
     {
+        
         return $this->render('admin/fp/index.html.twig', [
             'feuille_presences' => $feuillePresenceRepository->findAll(),
         ]);
@@ -90,14 +92,17 @@ class FPController extends AbstractController
     
     
     #[Route('/{id}/emarger/{id_emargement}', name: 'app_admin_emarger_fp_emargement', methods: ['POST'])]
-    public function emarger(Request $request, EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager, $id_emargement): Response
+    public function emarger(Request $request,BilanVolontaireRepository $bilanVolontaireRepository, EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager, $id_emargement): Response
     {
         if ($this->isCsrfTokenValid('emarger'.$feuillePresence->getId(), $request->request->get('_token'))) {
             $presence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Présent']);
             $emargement=$emargementRepository->findOneBy(['feuille'=>$feuillePresence,'id'=>$id_emargement]);
-            $emargement->setHeure(new DateTimeImmutable());
+            $emargement->setHeure(new DateTime());
             $emargement->setEtatTp($presence);
+            $bilan=$bilanVolontaireRepository->findOneBy(['affectation'=>$emargement->getAffectation(),'mois'=> idate('m',$emargement->getHeure()),'annee'=> idate('y',$emargement->getHeure())]);
+            $bilan->setNbjourAbsence($bilan->getNbjourAbsence()+1);
             $entityManager->persist($emargement);
+            $entityManager->persist($bilan);
             $entityManager->persist($feuillePresence);
         }
         $entityManager->flush();
@@ -106,7 +111,7 @@ class FPController extends AbstractController
     }
     
     #[Route('/{id}/fermer', name: 'app_admin_disable_fp_emargement', methods: ['POST'])]
-    public function disable(Request $request,EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
+    public function disable(Request $request,BilanVolontaireRepository $bilanVolontaireRepository,EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('disable'.$feuillePresence->getId(), $request->request->get('_token'))) {
             
@@ -117,8 +122,12 @@ class FPController extends AbstractController
                 if ($emargement->getEtatTp() == null) {
                     # code...
                     $emargement->setEtatTp($absence);
-                    $emargement->setHeure(new DateTimeImmutable());
+                    $emargement->setHeure(new DateTime());
+                    $bilan=$bilanVolontaireRepository->findOneBy(['affectation'=>$emargement->getAffectation(),'mois'=>(int)date('n',$emargement->getHeure()),'annee'=>(int)date('Y',$emargement->getHeure())]);
+                    $bilan->setNbjourAbsence($bilan->getNbjourAbsence()+1);
+                    
                     $entityManager->persist($emargement);
+                    $entityManager->persist($bilan);
                     $entityManager->flush();
                 }
             }
@@ -127,7 +136,7 @@ class FPController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin_fp_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_fp_show', ['id'=>$feuillePresence->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/delete', name: 'app_admin_fp_delete', methods: ['POST'])]

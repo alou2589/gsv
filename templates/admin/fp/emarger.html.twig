@@ -3,12 +3,12 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h2 class="modal-title" id="myModalLabel2">Confirmation de l'émargement</h2>
+        <h2 class="modal-title" id="myModalLabel2">Émargement</h2>
         <button type="button" class="close" data-dilgiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Confirmer  <strong class="text-danger"> {{feuille_presence.numeroFeuille}} </strong>  ?</p>
+        <p>Confirmez-vous l'émargement du volontaire de la consommation ?</p>
         <form method="post" action="{{ path('app_admin_emarger_fp_emargement', {'id': feuille_presence.id,'id_emargement': emargement.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
             <input type="hidden" name="_token" value="{{ csrf_token('emarger' ~ feuille_presence.id) }}">
             <a href="{{ path('app_admin_fp_show', {'id':feuille_presence.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>

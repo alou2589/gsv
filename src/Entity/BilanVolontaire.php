@@ -19,22 +19,22 @@ class BilanVolontaire
     #[ORM\ManyToOne(inversedBy: 'bilanVolontaires')]
     private ?Affectation $affectation = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $nbjour_presence = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $nbjour_absence = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $mois = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $nb_jours_ouvrables = null;
 
     #[ORM\OneToMany(mappedBy: 'bilan_volontaire', targetEntity: BulletinVolontaire::class, orphanRemoval: true)]
     private Collection $bulletinVolontaires;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $annee = null;
 
     public function __construct()

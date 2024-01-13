@@ -19,13 +19,13 @@
                             {% if emargement.heure == null %}
                                 ...
                             {% else %}
-                                {{ emargement.heure ? emargement.heure|date('h-m-s') : '' }}
+                                {{ emargement.heure ? emargement.heure|date('h:m') : '' }}
                             {% endif %}
                         </td>
                         <td class="text-center">
                             {% if feuille_presence.active == 1 %}
                                 {% if emargement.etatTp == null %}
-                                    <a type="button" class="btn btn-link border-green text-success" data-toggle="modal" data-target=".bs-emarger-modal-lg" title="Supprimer">Présent <i class="fas fa-check-double text-success"></i> </a>
+                                    <a type="button" class="btn btn-link border-green text-success" data-toggle="modal" data-target=".bs-emarger-modal-lg" title="Supprimer">Émargement <i class="fas fa-check-double text-success"></i> </a>
                                     {% include "./admin/fp/emarger.html.twig" %}
                                 {% else %}
                                     {% if emargement.etatTp.nomEtatTp == "Présent" %}

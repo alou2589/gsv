@@ -34,10 +34,10 @@ class Affectation
     #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: CartePro::class, orphanRemoval: true)]
     private Collection $cartePros;
 
-    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: Emargement::class)]
+    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: Emargement::class, orphanRemoval: true)]
     private Collection $emargements;
 
-    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: BilanVolontaire::class)]
+    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: BilanVolontaire::class, orphanRemoval: true)]
     private Collection $bilanVolontaires;
 
     public function __construct()

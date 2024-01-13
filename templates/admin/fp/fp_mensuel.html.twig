@@ -3,10 +3,10 @@
     <div class="col-md-12 mx-auto">  
         {{form_start(form, {'attr':{'class':'form'}})}}
         <div class="col-md-5 form-floatng">
-            {{form_row(form.minDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
+            {{form_row(form.chosenDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
         </div>
-        <div class="col-md-5 form-group">
-            {{form_row(form.maxDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
+        <div class="form-floating mb-3">
+          {{form_row(form.chosenSdc, {'label':'Service','attr':{'class':"form-control", 'placeholder':"Feuille de Présence", 'required':"required", 'autofocus':"autofocus"}})}}
         </div>
         <div class="col-md-2 form-floating">
           <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
@@ -24,39 +24,31 @@
           <thead>
               <tr>
                   <th class="text-center">Id</th>
-                  <th class="text-center">Numéro</th>
-                  <th class="text-center">Service</th>
+                  <th class="text-center">Volontaire</th>
+                  <th class="text-center">Nombre de présence</th>
+                  <th class="text-center">Nombre d'absence</th>
                   <th class="text-center">Informations</th>
               </tr>
           </thead>
           <tbody>
-          {% for feuille_presence in feuille_presences %}
+          {% for emargement in emargements %}
               <tr>
-                  <td class="text-center">{{ feuille_presence.id }}</td>
-                  <td class="text-center">{{ feuille_presence.numeroFeuille }}</td>
-                  <td class="text-center">{{ feuille_presence.serviceDepartemental.nomSdc }}</td>
+                  <td class="text-center">{{ emargement.id }}</td>
                   <td class="text-center">
-                    {% if feuille_presence.active == true %}
-                      <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-unlock text-success"></i> </a>
-                      {% include "./admin/fp/disable.html.twig" %}
-                    {% else %}
-                        <i class="fas fa-lock text-danger"></i>
-                    {% endif %}
+                    {{ emargement.affectation.volontaireStatut.volontaire.prenom }} {{ emargement.affectation.volontaireStatut.volontaire.nom }}                  
+                  </td>
+                  <td class="text-center">
+                    {{emargement.nbPresence}}
+                  </td>
+                  <td class="text-center">
+                    {{emargement.nbAbesence}}
                   </td>
                   <td class="text-center">
                     <div class="row">
                         <div class="col-md-8 mx-auto">
-                            <a href="{{ path('app_admin_fp_show', {'id': feuille_presence.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-                            <a href="{{ path('app_admin_fp_edit', {'id': feuille_presence.id}) }}"><i class="fas fa-edit text-warning" title="Modifier"></i></a> 
                         </div>
                     </div>
                   </td>
-              </tr>
-          {% else %}
-              <tr>
-                <td class="text-center" colspan="4">
-                    <a href="{{ path('app_admin_fp_new') }}" title="Ajout feuille de présence" >Ajouter <i class="fas fa-fw fa-plus-circle"></i></a>
-                </td>
               </tr>
           {% endfor %}
           </tbody>

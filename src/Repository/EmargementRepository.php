@@ -39,21 +39,6 @@ class EmargementRepository extends ServiceEntityRepository
         ;
         return $query->getQuery()->getResult();
     } 
-    public function findAllEmargementSearch(EmargementSearch $emargementSearch){
-            $query=$this->createQueryBuilder('e')
-            ->select("
-                    DISTINCT(e.affectation) AS info_volontaire,
-                    COUNT(SELECT * FROM App\Entity\Emargement e WHERE e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTp et WHERE et='Présent' )) AS nb_presence,
-                    COUNT(SELECT * FROM App\Entity\Emargement e WHERE e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTp et WHERE et='Absent' )) AS nb_absence,
-                    COUNT(e) AS total
-            ")
-            ->where("MONTH(e.heure)= :m")
-            ->setParameter('m',$emargementSearch->getChosenDate())
-            ->groupBy('e.affectation')
-            ->getQuery()
-            ->getResult();
-        return $query;
-    }
 //    /**
 //     * @return Emargement[] Returns an array of Emargement objects
 //     */

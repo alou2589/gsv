@@ -19,9 +19,11 @@ class EmargementSearchType extends AbstractType
                 'widget' => 'single_text',
                 'label'=>false,
                 'required'=>false,
+                'html5'=>false,
+                'format'=>'mm-yyyy',
                 'attr' => ['class' => 'js-datepicker'],
             ])
-            ->add('service_departemental', EntityType::class, [
+            ->add('chosenSdc', EntityType::class, [
                 'class' => ServiceDepartemental::class,
                 'choice_label' => 'nom_sdc',
             ])

@@ -44,13 +44,29 @@
                                 <p><strong>Numéro Feuille</strong>: {{ feuille_presence.numeroFeuille}}</p>
                             </div>
                             <div class="col-md-3 text-center">
+                                <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('h:m:s'):' '}}</p>
+                            </div>
+                            <div class="col-md-3 text-center">
                                 <p><strong>Service</strong>: {{ feuille_presence.serviceDepartemental.nomSdc }}</p>
                             </div>
                             <div class="lcol-md-3 text-center">
-                                <p><strong>Opérateur</strong>: {{ feuille_presence.operateur.email }}</p>
+                                <p><strong>Clôturer la feuille de présence</strong>: 
+                                    {% if feuille_presence.active == true %}
+                                        <a type="button" class="link" data-toggle="modal" data-target=".bs-disable-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-unlock text-success"></i> </a>
+                                        {% include "./admin/fp/disable.html.twig" %}
+                                    {% else %}
+                                        <i class="fas fa-lock text-danger"></i>
+                                    {% endif %}
+                                </p>
                             </div>
-                            <div class="col-md-3 text-center">
-                                <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('h:m:s'):' '}}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mx-auto text-center">
+                                {% if feuille_presence.active == true %}
+                                    Veuillez émarger 
+                                {% else %}
+                                    la feuille de présence est clôturée <i class="fas fa-lock text-danger"></i>
+                                {% endif %}
                             </div>
                         </div>
                         <hr>
