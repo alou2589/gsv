@@ -2,13 +2,13 @@
 <div class="row">
     <div class="col-md-12 mx-auto">  
         {{form_start(form, {'attr':{'class':'form'}})}}
-        <div class="col-md-5 form-floatng">
-            {{form_row(form.chosenDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
+        <div class="col-md-4 form-floatng">
+            {{form_row(form.minDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
         </div>
-        <div class="form-floating mb-3">
-          {{form_row(form.chosenSdc, {'label':'Service','attr':{'class':"form-control", 'placeholder':"Feuille de Présence", 'required':"required", 'autofocus':"autofocus"}})}}
+        <div class="col-md-4 form-floating mb-3">
+          {{form_row(form.maxDate, {'attr':{'class':"form-control js-datepicker", 'required':"required"}})}}
         </div>
-        <div class="col-md-2 form-floating">
+        <div class="col-md-4 form-floating">
           <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
         </div>
         {{ form_end(form) }}
@@ -18,36 +18,23 @@
     <div class="col-sm-12">
       <div class="card-box table-responsive">
         <p class="text-muted font-13 m-b-30">
-          Liste des feuille de présence
+          Liste des emargements
         </p>
         <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
           <thead>
               <tr>
                   <th class="text-center">Id</th>
                   <th class="text-center">Volontaire</th>
-                  <th class="text-center">Nombre de présence</th>
-                  <th class="text-center">Nombre d'absence</th>
                   <th class="text-center">Informations</th>
               </tr>
           </thead>
           <tbody>
-          {% for emargement in emargements %}
+          {% for bilan in bilans %}
               <tr>
-                  <td class="text-center">{{ emargement.id }}</td>
+                  <td class="text-center">{{ dump(bilan.infoVolontaire) }}</td>
                   <td class="text-center">
-                    {{ emargement.affectation.volontaireStatut.volontaire.prenom }} {{ emargement.affectation.volontaireStatut.volontaire.nom }}                  
                   </td>
                   <td class="text-center">
-                    {{emargement.nbPresence}}
-                  </td>
-                  <td class="text-center">
-                    {{emargement.nbAbesence}}
-                  </td>
-                  <td class="text-center">
-                    <div class="row">
-                        <div class="col-md-8 mx-auto">
-                        </div>
-                    </div>
                   </td>
               </tr>
           {% endfor %}

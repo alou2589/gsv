@@ -21,7 +21,7 @@ class Emargement
     private ?Affectation $affectation = null;
 
     #[ORM\Column(nullable:true)]
-    private ?\DateTimeInterface $heure = null;
+    private ?\DateTimeImmutable $heure = null;
 
     #[ORM\ManyToOne(inversedBy: 'emargements')]
     private ?FeuillePresence $feuille = null;
@@ -54,12 +54,12 @@ class Emargement
         return $this;
     }
 
-    public function getHeure(): ?\DateTimeInterface
+    public function getHeure(): ?\DateTimeImmutable
     {
         return $this->heure;
     }
 
-    public function setHeure(\DateTimeInterface $heure): static
+    public function setHeure(\DateTimeImmutable $heure): static
     {
         $this->heure = $heure;
 

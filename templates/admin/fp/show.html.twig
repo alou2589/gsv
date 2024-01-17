@@ -44,7 +44,7 @@
                                 <p><strong>Numéro Feuille</strong>: {{ feuille_presence.numeroFeuille}}</p>
                             </div>
                             <div class="col-md-3 text-center">
-                                <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('h:m:s'):' '}}</p>
+                                <p><strong>Date </strong>: {{feuille_presence.DateFeuille ? feuille_presence.DateFeuille|date('d/M/Y à h:m'):' '}}</p>
                             </div>
                             <div class="col-md-3 text-center">
                                 <p><strong>Service</strong>: {{ feuille_presence.serviceDepartemental.nomSdc }}</p>

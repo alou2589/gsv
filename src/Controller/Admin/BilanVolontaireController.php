@@ -4,8 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\BilanSearch;
 use App\Entity\BilanVolontaire;
+use App\Entity\BilanVolontaireSearch;
 use App\Entity\BulletinVolontaire;
 use App\Form\BilanSearchType;
+use App\Form\BilanVolontaireSearchType;
 use App\Form\BilanVolontaireType;
 use App\Repository\BilanVolontaireRepository;
 use App\Repository\EmargementRepository;
@@ -21,26 +23,27 @@ class BilanVolontaireController extends AbstractController
 {
     #[Route('/', name: 'app_admin_bilan_volontaire_index', methods: ['GET'])]
     public function index(BilanVolontaireRepository $bilanVolontaireRepository): Response
-    {
+    {   
+        
         return $this->render('admin/bilan_volontaire/index.html.twig', [
             'bilan_volontaires' => $bilanVolontaireRepository->findAll(),
         ]);
     }
-    #[Route('/filtre', name: 'app_admin_bilan_volontaire_index_filter', methods: ['GET', 'POST'])]
-    public function index_filter(Request $request,BilanVolontaireRepository $bilanVolontaireRepository): Response
+    
+    #[Route('/filter', name: 'app_admin_bilan_volontaire_index_filter', methods: ['POST','GET'])]
+    public function index_filter(Request $request, EmargementRepository $emargementRepository): Response
     {
-        $search= new BilanSearch();
-        $form=$this->createForm(BilanSearchType::class, $search);
-        $form->handleRequest($request);
-        $bilans=$bilanVolontaireRepository->findAllSearch($search);
         
-        return $this->render('admin/bilan_volontaire/index_filter.html.twig', [
-            'bilan_volontaires' => $bilanVolontaireRepository->findAllSearch($search),
+        $search=new BilanVolontaireSearch();
+        $form=$this->createForm(BilanVolontaireSearchType::class, $search);
+        $form->handleRequest($request);
+        $bilans=$emargementRepository->findAllSearch($search);
+        
+        return $this->render('admin/fp/index_filter.html.twig',[
             'form'=>$form->createView(),
-            'bilans'=>$bilans,
+            'bilans'=>$bilans
         ]);
     }
-
     #[Route('/new', name: 'app_admin_bilan_volontaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request,EmargementRepository $emargementReository, OpenDaysService $openDaysService,EntityManagerInterface $entityManager): Response
     {

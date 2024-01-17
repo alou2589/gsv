@@ -6,6 +6,7 @@ use App\Entity\Emargement;
 use App\Entity\BilanSearch;
 use App\Entity\EmargementSearch;
 use DoctrineExtensions\Query\Mysql;
+use App\Entity\BilanVolontaireSearch;
 use DoctrineExtensions\Query\Mysql\Year;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -25,20 +26,22 @@ class EmargementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Emargement::class);
     }
-    public function findByMonth($affectation,$month, $year, $nomTp)
-    {
-        $query = $this->createQueryBuilder('e')
-            ->where("MONTH(e.heure)= :month")
-            ->andwhere("YEAR(e.heure)= :year")
-            ->andwhere("e.affectation= :affectation")
-            ->andwhere("e.etat_tp= (SELECT etp.id FROM App\Entity\EtatTempsPresence etp WHERE etp.nom_etat_tp=:nomTp)")
-            ->setParameter('month', $month)
-            ->setParameter('year', $year)
-            ->setParameter('affectation', $affectation)
-            ->setParameter('nomTp', $nomTp)
-        ;
-        return $query->getQuery()->getResult();
-    } 
+    
+    public function findAllSearch(BilanVolontaireSearch $bilanSearch){
+        $query=$this->createQueryBuilder('e')
+        ->select("
+                e.affectation AS info_volontaire,
+                SUM(CASE WHEN (e.etat_tp IN(SELECT etp.id FROM App\Entity\EtatTempsPresence etp WHERE etp.nom_etat_tp='Présent')) THEN 1 ELSE 0 END) AS total_presence,
+                SUM(CASE WHEN (e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTempsPresence et WHERE et.nom_etat_tp='Absent')) THEN 1 ELSE 0 END) AS total_absence,
+        ")
+        ->where("e.heure BETWEEN :date1 AND :date2")
+        ->setParameter('date1',$bilanSearch->getMinDate())
+        ->setParameter('date2',$bilanSearch->getMinDate())
+        ->groupBy('e.affectation')
+        ->getQuery()
+        ->getResult();
+        return $query;
+    }
 //    /**
 //     * @return Emargement[] Returns an array of Emargement objects
 //     */

@@ -26,9 +26,6 @@ class BilanVolontaire
     private ?int $nbjour_absence = null;
 
     #[ORM\Column(nullable:true)]
-    private ?int $mois = null;
-
-    #[ORM\Column(nullable:true)]
     private ?int $nb_jours_ouvrables = null;
 
     #[ORM\OneToMany(mappedBy: 'bilan_volontaire', targetEntity: BulletinVolontaire::class, orphanRemoval: true)]
@@ -36,6 +33,10 @@ class BilanVolontaire
 
     #[ORM\Column(nullable:true)]
     private ?int $annee = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mois = null;
+
 
     public function __construct()
     {
@@ -80,18 +81,6 @@ class BilanVolontaire
     public function setNbjourAbsence(int $nbjour_absence): static
     {
         $this->nbjour_absence = $nbjour_absence;
-
-        return $this;
-    }
-
-    public function getMois(): ?int
-    {
-        return $this->mois;
-    }
-
-    public function setMois(int $mois): static
-    {
-        $this->mois = $mois;
 
         return $this;
     }
@@ -149,4 +138,17 @@ class BilanVolontaire
 
         return $this;
     }
+
+    public function getMois(): ?string
+    {
+        return $this->mois;
+    }
+
+    public function setMois(?string $mois): static
+    {
+        $this->mois = $mois;
+
+        return $this;
+    }
+
 }

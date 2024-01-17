@@ -19,9 +19,6 @@ class FeuillePresence
     #[ORM\Column]
     private ?string $numero_feuille = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $date_feuille = null;
-
     #[ORM\ManyToOne(inversedBy: 'feuillePresences')]
     private ?ServiceDepartemental $service_departemental = null;
 
@@ -33,6 +30,9 @@ class FeuillePresence
 
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $active = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $date_feuille = null;
 
     public function __construct()
     {
@@ -52,18 +52,6 @@ class FeuillePresence
     public function setNumeroFeuille(string $numero_feuille): static
     {
         $this->numero_feuille = $numero_feuille;
-
-        return $this;
-    }
-
-    public function getDateFeuille(): ?\DateTimeImmutable
-    {
-        return $this->date_feuille;
-    }
-
-    public function setDateFeuille(\DateTimeImmutable $date_feuille): static
-    {
-        $this->date_feuille = $date_feuille;
 
         return $this;
     }
@@ -130,6 +118,18 @@ class FeuillePresence
     public function setActive(string $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getDateFeuille(): ?\DateTimeImmutable
+    {
+        return $this->date_feuille;
+    }
+
+    public function setDateFeuille(?\DateTimeImmutable $date_feuille): static
+    {
+        $this->date_feuille = $date_feuille;
 
         return $this;
     }

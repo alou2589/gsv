@@ -11,8 +11,8 @@
         <p>Confirmez-vous l'émargement du volontaire de la consommation ?</p>
         <form method="post" action="{{ path('app_admin_emarger_fp_emargement', {'id': feuille_presence.id,'id_emargement': emargement.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
             <input type="hidden" name="_token" value="{{ csrf_token('emarger' ~ feuille_presence.id) }}">
-            <a href="{{ path('app_admin_fp_show', {'id':feuille_presence.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
-            <button class="btn btn-secondary">Émarger <i class="fas fa-fingerprint"></i></button>
+            <a href="{{ path('app_admin_fp_show', {'id':feuille_presence.id}) }}" class="btn btn-danger">Annuler <i class="fas fa-times"></i></a>
+            <button class="btn btn-success">Valider <i class="fas fa-save"></i></button>
         </form>
       </div>
     </div>

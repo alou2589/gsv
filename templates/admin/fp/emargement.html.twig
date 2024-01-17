@@ -25,8 +25,8 @@
                         <td class="text-center">
                             {% if feuille_presence.active == 1 %}
                                 {% if emargement.etatTp == null %}
-                                    <a type="button" class="btn btn-link border-green text-success" data-toggle="modal" data-target=".bs-emarger-modal-lg" title="Supprimer">Émargement <i class="fas fa-check-double text-success"></i> </a>
-                                    {% include "./admin/fp/emarger.html.twig" %}
+                                    <a type="button" href={{ path("app_admin_emarger_fp_emargement", {'id':feuille_presence.id,'id_emargement':emargement.id}) }} class="btn btn-link border-green text-success" title="Émarger">Émargement <i class="fas fa-check-double text-success"></i> </a>
+                                    {#% include "./admin/fp/emarger.html.twig" %#}
                                 {% else %}
                                     {% if emargement.etatTp.nomEtatTp == "Présent" %}
                                         <strong class="text-success">{{emargement.etatTp.nomEtatTp}}</strong>

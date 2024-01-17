@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\BilanSearch;
 use App\Entity\BilanVolontaire;
+use App\Entity\BilanVolontaireSearch;
 use App\Entity\EmargementSearch;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,24 +23,6 @@ class BilanVolontaireRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BilanVolontaire::class);
     }  
-    public function findAllSearch(BilanSearch $bilanSearch){
-            $query=$this->createQueryBuilder('b')
-            ->select('
-                    DISTINCT(b.affectation) AS info_volontaire,
-                    100*(SUM(b.nbjour_presence)/SUM(b.nb_jours_ouvrables)) AS taux_presence,
-                    100*(SUM(b.nbjour_absence)/SUM(b.nb_jours_ouvrables)) AS taux_absence,
-                    SUM(b.nb_jours_ouvrables) AS total
-            ')
-            ->where("CONCAT(b.mois,'/',b.annee) BETWEEN CONCAT(MONTH(:m1),'/',YEAR(:a1)) AND CONCAT(MONTH(:m2),'/',YEAR(:a2))")
-            ->setParameter('m1',$bilanSearch->getMinDate())
-            ->setParameter('a1',$bilanSearch->getMinDate())
-            ->setParameter('m2',$bilanSearch->getMaxDate())
-            ->setParameter('a2',$bilanSearch->getMaxDate())
-            ->groupBy('b.affectation')
-            ->getQuery()
-            ->getResult();
-        return $query;
-    }
 
 
 //    /**

@@ -32,10 +32,7 @@ class AffectationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bilanVolontaire=new BilanVolontaire();
-            $bilanVolontaire->setAffectation($affectation);
             $entityManager->persist($affectation);
-            $entityManager->persist($bilanVolontaire);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_affectation_index', [], Response::HTTP_SEE_OTHER);
