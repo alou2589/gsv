@@ -55,10 +55,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'operateur', targetEntity: FeuillePresence::class)]
     private Collection $feuillePresences;
 
+    #[ORM\OneToMany(mappedBy: 'operateur', targetEntity: JustificationAbsence::class)]
+    private Collection $justificationAbsences;
+
     public function __construct(){
         $this->createdAt= new \DateTimeImmutable();
         $this->contrats = new ArrayCollection();
         $this->feuillePresences = new ArrayCollection();
+        $this->justificationAbsences = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -256,6 +260,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($feuillePresence->getOperateur() === $this) {
                 $feuillePresence->setOperateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JustificationAbsence>
+     */
+    public function getJustificationAbsences(): Collection
+    {
+        return $this->justificationAbsences;
+    }
+
+    public function addJustificationAbsence(JustificationAbsence $justificationAbsence): static
+    {
+        if (!$this->justificationAbsences->contains($justificationAbsence)) {
+            $this->justificationAbsences->add($justificationAbsence);
+            $justificationAbsence->setOperateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJustificationAbsence(JustificationAbsence $justificationAbsence): static
+    {
+        if ($this->justificationAbsences->removeElement($justificationAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($justificationAbsence->getOperateur() === $this) {
+                $justificationAbsence->setOperateur(null);
             }
         }
 

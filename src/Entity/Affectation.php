@@ -40,11 +40,15 @@ class Affectation
     #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: BilanVolontaire::class, orphanRemoval: true)]
     private Collection $bilanVolontaires;
 
+    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: JustificationAbsence::class, orphanRemoval: true)]
+    private Collection $justificationAbsences;
+
     public function __construct()
     {
         $this->cartePros = new ArrayCollection();
         $this->emargements = new ArrayCollection();
         $this->bilanVolontaires = new ArrayCollection();
+        $this->justificationAbsences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +188,36 @@ class Affectation
             // set the owning side to null (unless already changed)
             if ($bilanVolontaire->getAffectation() === $this) {
                 $bilanVolontaire->setAffectation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JustificationAbsence>
+     */
+    public function getJustificationAbsences(): Collection
+    {
+        return $this->justificationAbsences;
+    }
+
+    public function addJustificationAbsence(JustificationAbsence $justificationAbsence): static
+    {
+        if (!$this->justificationAbsences->contains($justificationAbsence)) {
+            $this->justificationAbsences->add($justificationAbsence);
+            $justificationAbsence->setAffectation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJustificationAbsence(JustificationAbsence $justificationAbsence): static
+    {
+        if ($this->justificationAbsences->removeElement($justificationAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($justificationAbsence->getAffectation() === $this) {
+                $justificationAbsence->setAffectation(null);
             }
         }
 

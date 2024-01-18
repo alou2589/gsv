@@ -1,0 +1,66 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Justification Absence | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Justification Absence</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li>
+              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li>
+              <a href="{{ path('app_admin_ja_index') }}" title="Accueil Justification Absence" ><i class="fas fa-fw fa-home"></i></a>
+          </li>
+          <li>
+              <a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row">
+          <div class="col-md-6 col-sm-10 mx-auto">
+            {{form_start(form, {'attr':{'class':'form'}})}}
+                <div class="form-floating mb-3">
+                    {{form_row(form.type_justificatif, {'attr':{'class':"form-control js-example-basic-single", 'required':"required"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                    {{form_row(form.affectation, {'attr':{'class':"form-control js-example-basic-single", 'required':"required"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                  <label for={{field_name(form.nb_jours_absence)}}>Nombre de jours d'absence</label>
+                  <input class="form-control" type="number" class='form-control number' name={{field_name(form.nb_jours_absence)}} data-validate-minmax="10,100" required='required'>
+                  {#{form_row(form.nb_jours_absence, {'attr':{'class':"form-control number", 'required':"required", 'autofocus':"autofocus"}})}#}
+                </div>
+                <div class="form-floating mb-3">
+                  {{form_row(form.date_debut, {'attr':{'class':"form-control js-datepicker", 'required':"required", 'autofocus':"autofocus"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                  {{form_row(form.date_fin, {'attr':{'class':"form-control js-datepicker", 'required':"required", 'autofocus':"autofocus"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                  {{form_row(form.upload_justificatif, {'attr':{'class':"form-control dropzone"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                    {{form_row(form.status_validation, {'attr':{'class':"form-control js-example-basic-single", 'required':"required"}})}}
+                </div>
+                <div class="form-floating mb-3">
+                  {{form_row(form.date_justification, {'attr':{'class':"form-control js-datepicker", 'required':"required", 'autofocus':"autofocus"}})}}
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success">Valider <i class="fas fa-save"></i> </button>
+                </div>
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

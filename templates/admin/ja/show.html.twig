@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JustificationAbsence{% endblock %}
+
+{% block body %}
+    <h1>JustificationAbsence</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ justification_absence.id }}</td>
+            </tr>
+            <tr>
+                <th>Nb_jours_absence</th>
+                <td>{{ justification_absence.nbJoursAbsence }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ justification_absence.dateDebut ? justification_absence.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ justification_absence.dateFin ? justification_absence.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Upload_justificatif</th>
+                <td>{{ justification_absence.uploadJustificatif }}</td>
+            </tr>
+            <tr>
+                <th>Status_validation</th>
+                <td>{{ justification_absence.statusValidation }}</td>
+            </tr>
+            <tr>
+                <th>Date_justification</th>
+                <td>{{ justification_absence.dateJustification ? justification_absence.dateJustification|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_j_a_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_j_a_edit', {'id': justification_absence.id}) }}">edit</a>
+
+    {{ include('admin/ja/_delete_form.html.twig') }}
+{% endblock %}

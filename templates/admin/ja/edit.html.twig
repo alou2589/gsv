@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit JustificationAbsence{% endblock %}
+
+{% block body %}
+    <h1>Edit JustificationAbsence</h1>
+
+    {{ include('admin/ja/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_j_a_index') }}">back to list</a>
+
+    {{ include('admin/ja/_delete_form.html.twig') }}
+{% endblock %}

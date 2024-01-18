@@ -3,11 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Emargement;
-use App\Entity\BilanSearch;
-use App\Entity\EmargementSearch;
+use DoctrineExtensions\Query\Mysql\IfElse;
+use DoctrineExtensions\Query\Postgresql;
 use DoctrineExtensions\Query\Mysql;
 use App\Entity\BilanVolontaireSearch;
-use DoctrineExtensions\Query\Mysql\Year;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -29,15 +28,26 @@ class EmargementRepository extends ServiceEntityRepository
     
     public function findAllSearch(BilanVolontaireSearch $bilanSearch){
         $query=$this->createQueryBuilder('e')
+        ->leftJoin('e.affectation','a')
         ->select("
-                e.affectation AS info_volontaire,
-                SUM(CASE WHEN (e.etat_tp IN(SELECT etp.id FROM App\Entity\EtatTempsPresence etp WHERE etp.nom_etat_tp='Présent')) THEN 1 ELSE 0 END) AS total_presence,
-                SUM(CASE WHEN (e.etat_tp IN(SELECT et.id FROM App\Entity\EtatTempsPresence et WHERE et.nom_etat_tp='Absent')) THEN 1 ELSE 0 END) AS total_absence,
-        ")
-        ->where("e.heure BETWEEN :date1 AND :date2")
-        ->setParameter('date1',$bilanSearch->getMinDate())
-        ->setParameter('date2',$bilanSearch->getMinDate())
+                SUM(CASE WHEN IDENTITY(e.etat_tp)=(SELECT et.id FROM App\Entity\EtatTempsPresence et WHERE et.nom_etat_tp='Présent') THEN 1 ELSE 0 END ) AS total_presence,
+                SUM(CASE WHEN IDENTITY(e.etat_tp)=(SELECT etp.id FROM App\Entity\EtatTempsPresence etp WHERE etp.nom_etat_tp='Absent') THEN 1 ELSE 0 END ) AS total_absence")
         ->groupBy('e.affectation')
+        ->getQuery()
+        ->getResult();
+        return $query;
+    }
+    public function listeAbsence($date_debut,$date_fin)
+    {
+        $query=$this->createQueryBuilder('e')
+        ->where("
+            e.etat_tp=(SELECT et.id FROM App\Entity\EtatTempsPresence et WHERE et.nom_etat_tp='Absent')
+        ")
+        ->andWhere("
+            MONTH(e.heure) BETWEEN MONTH(:date_debut) AND MONTH(:date_fin)
+        ")
+        ->setParameter('date_debut',$date_debut)
+        ->setParameter('date_fin',$date_fin)
         ->getQuery()
         ->getResult();
         return $query;
