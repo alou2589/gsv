@@ -28,6 +28,9 @@ class BulletinVolontaire
     #[ORM\Column(nullable: true)]
     private ?int $total_paie = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $paie_absences_justifiees = null;
+
 
     public function getId(): ?int
     {
@@ -90,6 +93,18 @@ class BulletinVolontaire
     public function setTotalPaie(?int $total_paie): static
     {
         $this->total_paie = $total_paie;
+
+        return $this;
+    }
+
+    public function getPaieAbsencesJustifiees(): ?int
+    {
+        return $this->paie_absences_justifiees;
+    }
+
+    public function setPaieAbsencesJustifiees(?int $paie_absences_justifiees): static
+    {
+        $this->paie_absences_justifiees = $paie_absences_justifiees;
 
         return $this;
     }

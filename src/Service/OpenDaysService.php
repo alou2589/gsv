@@ -40,7 +40,7 @@
            return $nb_days_open;
         }
         
-        public function calculJoursFeries($mois) {
+        public function calculJoursFeries(int $mois) {
  
             $nbJourMois = cal_days_in_month(CAL_GREGORIAN, $mois, date('Y'));
          

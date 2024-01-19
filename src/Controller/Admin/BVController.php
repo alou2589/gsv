@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\BulletinVolontaire;
 use App\Form\BulletinVolontaireType;
+use App\Repository\BilanVolontaireRepository;
 use App\Repository\BulletinVolontaireRepository;
 use App\Repository\EmargementRepository;
 use App\Repository\FeuillePresenceRepository;
+use App\Repository\JustificationAbsenceRepository;
 use App\Service\OpenDaysService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,41 +28,51 @@ class BVController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_bv_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,OpenDaysService $openDaysService,FeuillePresenceRepository $feuillePresenceRepository ,EmargementRepository $emargementReository, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,OpenDaysService $openDaysService,JustificationAbsenceRepository $justificationAbsenceRepository,FeuillePresenceRepository $feuillePresenceRepository ,BilanVolontaireRepository $bilanVolontaireRepository, EntityManagerInterface $entityManager): Response
     {
         $bulletinVolontaire = new BulletinVolontaire();
+        $absences_justifiées=$justificationAbsenceRepository->findAll();
         $form = $this->createForm(BulletinVolontaireType::class, $bulletinVolontaire);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $nbOpenDaysInMonth= $openDaysService->calculJoursFeries($bulletinVolontaire->getBilanVolontaire()->getMois());
+            //$nbOpenDaysInMonth= $openDaysService->calculJoursFeries($bulletinVolontaire->getBilanVolontaire()->getMois());
             $nbFeuilles=$feuillePresenceRepository->findByMonth($bulletinVolontaire->getBilanVolontaire()->getMois());
-            $presents=$emargementReository->findByMonth($bulletinVolontaire->getBilanVolontaire()->getAffectation(),$bulletinVolontaire->getBilanVolontaire()->getMois(),date('Y'),"Présent");
-            $absents=$emargementReository->findByMonth($bulletinVolontaire->getBilanVolontaire()->getAffectation(),$bulletinVolontaire->getBilanVolontaire()->getMois(),date('Y'),"Absent");
-            
+            $presents=$bulletinVolontaire->getBilanVolontaire()->getNbjourPresence();
+            $absents=$bulletinVolontaire->getBilanVolontaire()->getNbjourAbsence();
             //$nbOpenDaysInMonth=;
-            $bulletinVolontaire->setPaiePresence(count($presents)*3333);
-            $bulletinVolontaire->setPaieAbsence(count($absents)*3333);
-            if(count($absents)>=0 && count($absents)<=7){
+            $bulletinVolontaire->setPaiePresence($presents*3333);
+            $bulletinVolontaire->setPaieAbsence($absents*3333);
+            $bulletinVolontaire->setPaieAbsencesJustifiees(3333*count($absences_justifiées));
+            if($absents>=0 && $absents<=7){
                 $bulletinVolontaire->setForfait(0);
-                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait();
+                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait()+$bulletinVolontaire->getPaieAbsencesJustifiees();
+            
+                $bulletinVolontaire->setTotalPaie($paieTotal);
+                $entityManager->flush();
             } 
-            elseif(count($absents)>=8 && count($absents)<=15){
+            elseif($absents>=8 && $absents<=15){
                 $bulletinVolontaire->setForfait((100000-(3333*count($nbFeuilles)))/3);
-                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait();
+                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait()+$bulletinVolontaire->getPaieAbsencesJustifiees();
+            
+                $bulletinVolontaire->setTotalPaie($paieTotal);
+                $entityManager->flush();
             } 
-            elseif(count($absents)>=15 && count($absents)<24){
+            elseif($absents>=15 && $absents<24){
                 $bulletinVolontaire->setForfait((100000-(3333*count($nbFeuilles)))*2/3);
-                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait();
+                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait()+$bulletinVolontaire->getPaieAbsencesJustifiees();
+            
+                $bulletinVolontaire->setTotalPaie($paieTotal);
+                $entityManager->flush();
             }
             else{
                 $bulletinVolontaire->setForfait(100000-(3333*count($nbFeuilles)));
-                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait()-$bulletinVolontaire->getPaieAbsence();
+                $paieTotal=$bulletinVolontaire->getPaiePresence()+$bulletinVolontaire->getForfait()-$bulletinVolontaire->getPaieAbsence()+$bulletinVolontaire->getPaieAbsencesJustifiees();
+            
+                $bulletinVolontaire->setTotalPaie($paieTotal);
+                $entityManager->flush();
             }
             $entityManager->persist($bulletinVolontaire);
-            $entityManager->flush();
-            
-            $bulletinVolontaire->setTotalPaie($paieTotal);
             $entityManager->flush();
             return $this->redirectToRoute('app_admin_bv_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -72,10 +84,11 @@ class BVController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'app_admin_bv_show', methods: ['GET'])]
-    public function show(BulletinVolontaire $bulletinVolontaire): Response
+    public function show(BulletinVolontaire $bulletinVolontaire, JustificationAbsenceRepository $justificationAbsenceRepository): Response
     {
         return $this->render('admin/bv/show.html.twig', [
             'bulletin_volontaire' => $bulletinVolontaire,
+            'absences_justifiées'=>$justificationAbsenceRepository->findAll(),
         ]);
     }
 

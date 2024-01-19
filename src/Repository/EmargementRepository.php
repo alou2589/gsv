@@ -52,6 +52,30 @@ class EmargementRepository extends ServiceEntityRepository
         ->getResult();
         return $query;
     }
+    
+    public function findByMonth($affectation,$mois,$annee,$presence)
+    {
+        $query=$this->createQueryBuilder('e')
+        ->where("
+            e.affectation= :affectation
+        ")
+        ->andWhere("
+            MONTH(e.heure)= :mois
+        ")
+        ->andWhere("
+            YEAR(e.heure)= :annee
+        ")
+        ->andWhere("
+            e.etat_tp=(SELECT et.id FROM App\Entity\EtatTempsPresence et WHERE et.nom_etat_tp= :presence)
+        ")
+        ->setParameter('affectation',$affectation)
+        ->setParameter('mois',$mois)
+        ->setParameter('annee',$annee)
+        ->setParameter('presence',$presence)
+        ->getQuery()
+        ->getResult();
+        return $query;
+    }
 //    /**
 //     * @return Emargement[] Returns an array of Emargement objects
 //     */

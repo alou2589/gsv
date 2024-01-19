@@ -37,6 +37,9 @@ class BilanVolontaire
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mois = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $nb_jours_absences_justifiees = null;
+
 
     public function __construct()
     {
@@ -147,6 +150,18 @@ class BilanVolontaire
     public function setMois(?string $mois): static
     {
         $this->mois = $mois;
+
+        return $this;
+    }
+
+    public function getNbJoursAbsencesJustifiees(): ?int
+    {
+        return $this->nb_jours_absences_justifiees;
+    }
+
+    public function setNbJoursAbsencesJustifiees(?int $nb_jours_absences_justifiees): static
+    {
+        $this->nb_jours_absences_justifiees = $nb_jours_absences_justifiees;
 
         return $this;
     }

@@ -49,17 +49,17 @@
                                     <tr>
                                         <td class="text-center">Nombres de Jours d'Absence</td>
                                         <td class="text-center">{{bulletin_volontaire.bilanVolontaire.nbjourAbsence}} </td>
-                                        <td></td>
+                                        <td class="text-center">{{bulletin_volontaire.paieAbsence}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Absences Justifiées</td>
+                                        <td class="text-center">{{absences_justifiées|length}} </td>
+                                        <td class="text-center">{{bulletin_volontaire.paieAbsencesJustifiees}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">Forfait</td>
                                         <td></td>
                                         <td class="text-center">{{bulletin_volontaire.forfait}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Retenu</td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
