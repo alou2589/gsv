@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use App\Entity\ServiceDepartemental;
 use Symfony\Component\Form\AbstractType;
 use App\Repository\AffectationRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,13 +23,12 @@ class FPEmargementType extends AbstractType
         //dd($this->getParameter('FPEmargementType.php'));
         
         $builder
-            ->add('etat_tp', EntityType::class, [
-                'label' => false,
-                'class' => EtatTempsPresence::class,
-                'choice_label' => 'nom_etat_tp',
-                'attr'=>['style'=>'width:100%','class'=>'js-example-basic-single']
-            ])
-        ;
+            ->add('etat_tp', ChoiceType::class, [
+                 'choices'=>[
+                    'Présent'=>'Présent',
+                    'Absent'=>'Absent',
+                 ]
+                 ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

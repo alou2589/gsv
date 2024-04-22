@@ -14,8 +14,7 @@ class Emargement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'emargements')]
-    private ?EtatTempsPresence $etat_tp = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'emargements')]
     private ?Affectation $affectation = null;
@@ -25,22 +24,14 @@ class Emargement
 
     #[ORM\ManyToOne(inversedBy: 'emargements')]
     private ?FeuillePresence $feuille = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $etat_tp = null;
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEtatTp(): ?EtatTempsPresence
-    {
-        return $this->etat_tp;
-    }
-
-    public function setEtatTp(?EtatTempsPresence $etat_tp): static
-    {
-        $this->etat_tp = $etat_tp;
-
-        return $this;
-    }
 
     public function getAffectation(): ?Affectation
     {
@@ -74,6 +65,18 @@ class Emargement
     public function setFeuille(?FeuillePresence $feuille): static
     {
         $this->feuille = $feuille;
+
+        return $this;
+    }
+
+    public function getEtatTp(): ?string
+    {
+        return $this->etat_tp;
+    }
+
+    public function setEtatTp(?string $etat_tp): static
+    {
+        $this->etat_tp = $etat_tp;
 
         return $this;
     }

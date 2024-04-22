@@ -8,6 +8,7 @@ use App\Entity\FeuillePresence;
 use App\Entity\EtatTempsPresence;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,10 +18,11 @@ class EmargementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('etat_tp', EntityType::class, [
-                'class' => EtatTempsPresence::class,
-                'choice_label' => 'nom_etat_tp',
-                'attr'=>['class'=>'js-example-basic-single']
+            ->add('etat_tp', ChoiceType::class, [
+                'choices'=>[
+                    'Présent'=>'Présent',
+                    'Absent'=>'Absent',
+                ]
             ])
             ->add('affectation', EntityType::class, [
                 'class' => Affectation::class,
