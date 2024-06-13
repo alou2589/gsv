@@ -8,10 +8,8 @@ use App\Entity\Emargement;
 use App\Form\FPEmargementType;
 use App\Entity\BilanVolontaire;
 use App\Entity\FeuillePresence;
-use App\Entity\EmargementSearch;
 use App\Service\OpenDaysService;
 use App\Form\FeuillePresenceType;
-use App\Form\EmargementSearchType;
 use App\Repository\EmargementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AffectationRepository;
@@ -19,7 +17,6 @@ use App\Repository\BilanVolontaireRepository;
 use App\Repository\FeuillePresenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\EtatTempsPresenceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -96,7 +93,7 @@ class FPController extends AbstractController
     
     
     #[Route('/{id}/emarger/{id_emargement}', name: 'app_admin_emarger_fp_emargement', methods: ['GET','POST'])]
-    public function emarger(Request $request,OpenDaysService $openDaysService,BilanVolontaireRepository $bilanVolontaireRepository,EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager, $id_emargement): Response
+    public function emarger(Request $request,OpenDaysService $openDaysService,BilanVolontaireRepository $bilanVolontaireRepository,EmargementRepository $emargementRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager, $id_emargement): Response
     {
         $form = $this->createForm(FeuillePresenceType::class, $feuillePresence);
         $form->handleRequest($request);
@@ -108,9 +105,9 @@ class FPController extends AbstractController
         }
         $emargement=$emargementRepository->findOneBy(['feuille'=>$feuillePresence,'id'=>$id_emargement]);
         if ($this->isCsrfTokenValid('emarger'.$feuillePresence->getId(), $request->request->get('_token'))) {
-            $presence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Présent']);
+            //$presence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Présent']);
             $emargement->setHeure($feuillePresence->getDateFeuille());
-            $emargement->setEtatTp($presence);
+            $emargement->setEtatTp("Présent");
             $bilanVolontaire=$bilanVolontaireRepository->findOneBy(['affectation'=>$emargement->getAffectation(),'mois'=>$emargement->getHeure()->format('F'),'annee'=>$emargement->getHeure()->format('Y')]);
             if($bilanVolontaire != null){
                 if($bilanVolontaire->getNbJoursOuvrables() == 0){
@@ -145,17 +142,17 @@ class FPController extends AbstractController
     }
     
     #[Route('/{id}/fermer', name: 'app_admin_disable_fp_emargement', methods: ['POST'])]
-    public function disable(Request $request,OpenDaysService $openDaysService,BilanVolontaireRepository $bilanVolontaireRepository,EmargementRepository $emargementRepository,EtatTempsPresenceRepository $etatTempsPresenceRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
+    public function disable(Request $request,OpenDaysService $openDaysService,BilanVolontaireRepository $bilanVolontaireRepository,EmargementRepository $emargementRepository, FeuillePresence $feuillePresence, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('disable'.$feuillePresence->getId(), $request->request->get('_token'))) {
             
-            $absence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Absent']);
+            //$absence=$etatTempsPresenceRepository->findOneBy(['nom_etat_tp'=>'Absent']);
             $emargements=$emargementRepository->findBy(['feuille'=>$feuillePresence]);
             foreach ($emargements as $emargement) {
                 # code...
                 if ($emargement->getEtatTp() == null) {
                     # code...
-                    $emargement->setEtatTp($absence);
+                    $emargement->setEtatTp("Absent");
                     $emargement->setHeure(new \DateTimeImmutable());
                     $bilanVolontaire=$bilanVolontaireRepository->findOneBy(['affectation'=>$emargement->getAffectation(),'mois'=>$emargement->getHeure()->format('F'),'annee'=>$emargement->getHeure()->format('Y')]);
                     if($bilanVolontaire){

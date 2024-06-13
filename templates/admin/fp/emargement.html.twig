@@ -30,17 +30,17 @@
                                      <a type="button" href={{ path("app_admin_emarger_fp_emargement", {'id':feuille_presence.id,'id_emargement':emargement.id}) }} class="btn btn-link border-green text-success" title="Émarger">Émargement <i class="fas fa-check-double text-success"></i> </a>
                                    {#% include "./admin/fp/emarger.html.twig" %#}
                                {% else %}
-                                   {% if emargement.etatTp.nomEtatTp == "Présent" %}
+                                   {% if emargement.etatTp == "Présent" %}
                                       <strong class="text-success">{{emargement.etatTp.nomEtatTp}}</strong>
                                   {% else %}
                                      <strong class="text-danger">{{emargement.etatTp.nomEtatTp}}</strong>
                                     {% endif %}
                              {% endif %}
                               {% else %}
-                              {% if emargement.etatTp.nomEtatTp == "Présent" %}
+                              {% if emargement.etatTp == "Présent" %}
                                   <strong class="text-success">{{emargement.etatTp.nomEtatTp}}</strong>
                                  {% else %}
-                                    <strong class="text-danger">{{emargement.etatTp.nomEtatTp}}</strong>
+                                    <strong class="text-danger">{{emargement.etatTp}}</strong>
                             {% endif %}
                             {% endif %}
                         </td>
